@@ -1,0 +1,86 @@
+{
+    "html.format.extraLiners": "comments",
+    "html.format.indentHandlebars": true,
+	"workbench.colorTheme": "Monokai",
+	"editor.formatOnSave": true,
+	"editor.mouseWheelScrollSensitivity": 3,
+	"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+	"editor.formatOnPaste": true,
+	"editor.multiCursorModifier": "ctrlCmd",
+	"editor.snippetSuggestions": "top",
+	"git.autofetch": true,
+	"window.openFoldersInNewWindow": "on",
+	"css.remoteStyleSheets": [
+		"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+	],
+	"files.associations": {
+		".blade.php": "html",
+		".tpl": "html"
+	},
+	"phpfmt.passes": ["AlignPHPCode"],
+	"prettier.useTabs": true,
+	"editor.smoothScrolling": true,
+	"editor.wordWrap": "on",
+	"window.newWindowDimensions": "maximized",
+	"emmet.triggerExpansionOnTab": true,
+	"blade.format.enable": true,
+	"liveServer.settings.useWebExt": true,
+	"liveServer.settings.host": "localhost",
+	"liveServer.settings.donotShowInfoMsg": true,
+	"liveServer.settings.fullReload": true,
+	"beautify.language": {
+		"html": ["blade", "html"]
+	},
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"[blade]": {
+		"editor.defaultFormatter": "apility.beautify-blade"
+	},
+	"window.zoomLevel": 0,
+	"editor.suggestSelection": "first",
+	"vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+	"files.exclude": {
+		"**/.classpath": true,
+		"**/.project": true,
+		"**/.settings": true,
+		"**/.factorypath": true
+	},
+	"liveServer.settings.donotVerifyTags": true,
+	"newLine": {
+        "brace": true
+    }
+}
+	{
+	"space": {
+        "language": {
+            "php": {
+                ".": {
+                    "before": 1,
+                    "after": 1
+                }
+            }
+        }
+    },
+	"space":{
+        "comma":{
+            "before": 0,
+            "after": 1
+        },
+        "parenthesis":{
+            "open":{
+                "before":{
+                    "foreach": 1,
+                    "if": 1
+                }
+            }
+        },
+        "brace":{
+            "open":{
+                "before":{
+                    "for": 1,
+                    "if": 1
+                }
+            }
+        }
+    }
+}
