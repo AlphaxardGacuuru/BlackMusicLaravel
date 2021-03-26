@@ -46,6 +46,11 @@ class LoginController extends Controller
         return Socialite::driver($website)->redirect();
     }
 
+    public function username()
+    {
+        return 'phone';
+    }
+
     /**
      * Obtain the user information from GitHub.
      *
