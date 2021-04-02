@@ -177,8 +177,8 @@
                                                 @foreach($cartVideos as $cartVideo)
                                                     <div class='media p-2 border-bottom'>
                                                         <div class='media-left thumbnail'>
-                                                            <a href='/charts/{{ $cartVideo->video_id }}'>
-                                                                <img src='/storage/{{ $cartVideo->videos->thumbnail }}'
+                                                            <a href='/video-charts/{{ $cartVideo->video_id }}'>
+                                                                <img src='{{ $cartVideo->videos->thumbnail }}'
                                                                     width="160em" height="90em">
                                                             </a>
                                                         </div>
@@ -196,7 +196,7 @@
                                                 @endforeach
                                             @endif
                                             @if($cartVideos->count() > 0)
-                                                <a class="dropdown-item p-2" href="cart">
+                                                <a class="dropdown-item p-2" href="/cart">
                                                     <center>
                                                         <h6>Checkout</h6>
                                                     </center>

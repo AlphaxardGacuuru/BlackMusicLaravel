@@ -12,7 +12,6 @@
 @endif
 <!-- Profile pic area -->
 <br>
-<br>
 <br class="hidden">
 <div class="row"
     style="background-image: url('/storage/img/headphones.jpg'); background-position: center; background-size: cover; position: relative; height: 90%;">
@@ -702,7 +701,7 @@
                 @if($boughtVideoQuery == 0)
                     <div class="media p-2 border-bottom">
                         <div class="media-left thumbnail">
-                            <a href='/charts/{{ $video->id }}'>
+                            <a href='/video-charts/{{ $video->id }}'>
                                 <img src='{{ $video->thumbnail }}' width="160em" height="90em">
                             </a>
                         </div>

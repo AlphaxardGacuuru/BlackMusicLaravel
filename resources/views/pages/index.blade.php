@@ -41,7 +41,6 @@
 @endif
 
 <br>
-<br>
 <br class="hidden">
 <br class="hidden">
 
@@ -215,7 +214,7 @@
                             <span class="card pt-0 pl-0 pr-0 pb-2" style='border-radius: 10px'>
                                 <div class="thumbnail"
                                     style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
-                                    <a href='/charts/{{ $video->id }}'>
+                                    <a href='/video-charts/{{ $video->id }}'>
                                         <img src='{{ $video->thumbnail }}' width="160em" height="90em">
                                     </a>
                                 </div>
@@ -869,7 +868,7 @@
                     && $video->username != $user->username)
                     <div class="media p-2 border-bottom">
                         <div class="media-left thumbnail">
-                            <a href='/charts/{{ $video->id }}'>
+                            <a href='/video-charts/{{ $video->id }}'>
                                 <img src='{{ $video->thumbnail }}' width="160em" height="90em">
                             </a>
                         </div>

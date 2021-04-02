@@ -2,7 +2,6 @@
 
 @section('content')
 @include('inc/topnav')
-<br>
 <br class="hidden">
 <br class="hidden">
 <div class="row">

@@ -27,7 +27,6 @@
 <br>
 <br>
 <br>
-<br>
 
 <!-- ***** Call to Action Area Start ***** -->
 <div class="sonar-call-to-action-area section-padding-0-100">

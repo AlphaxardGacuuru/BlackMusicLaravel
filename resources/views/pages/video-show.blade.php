@@ -2,7 +2,6 @@
 @section('content')
 @include('inc/topnav')
 <br>
-<br>
 <br class="hidden">
 @guest
     @php
@@ -423,7 +422,7 @@
                     && $video->id != $show->id)
                     <div class="media p-2 border-bottom">
                         <div class="media-left thumbnail">
-                            <a href='/charts/{{ $video->id }}'>
+                            <a href='/video-charts/{{ $video->id }}'>
                                 <img src='{{ $video->thumbnail }}' width="160em" height="90em">
                             </a>
                         </div>
@@ -500,7 +499,7 @@
                     && $video->id != $show->id)
                     <div class="media p-2 border-bottom">
                         <div class="media-left thumbnail">
-                            <a href='/charts/{{ $video->id }}'>
+                            <a href='/video-charts/{{ $video->id }}'>
                                 <img src='{{ $video->thumbnail }}' width="160em" height="90em">
                             </a>
                         </div>

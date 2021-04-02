@@ -4,7 +4,6 @@
 @include('inc/topnav')
 <br>
 <br>
-<br>
 <br class="hidden">
 <div class="row">
     <div class="col-sm-1"></div>

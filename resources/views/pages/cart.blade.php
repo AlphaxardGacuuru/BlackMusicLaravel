@@ -15,8 +15,8 @@
             @foreach($cartVideos as $cartVideo)
                 <div class='media p-2 border-bottom'>
                     <div class='media-left thumbnail'>
-                        <a href='/charts/{{ $cartVideo->video_id }}'>
-                            <img src='/storage/{{ $cartVideo->videos->thumbnail }}' width="160em" height="90em">
+                        <a href='/video-charts/{{ $cartVideo->video_id }}'>
+                            <img src='{{ $cartVideo->videos->thumbnail }}' width="160em" height="90em">
                         </a>
                     </div>
                     <div class='media-body ml-2'>

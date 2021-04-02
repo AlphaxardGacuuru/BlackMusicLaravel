@@ -46,6 +46,7 @@ class LoginController extends Controller
         return Socialite::driver($website)->redirect();
     }
 
+    // Change identifier to phone
     public function username()
     {
         return 'phone';

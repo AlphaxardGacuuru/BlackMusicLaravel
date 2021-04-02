@@ -10,7 +10,6 @@
 @section('content')
 @include('inc/topnav')
 <br>
-<br>
 <br class="hidden">
 @guest
     @php
