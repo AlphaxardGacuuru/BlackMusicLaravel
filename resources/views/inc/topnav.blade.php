@@ -325,7 +325,7 @@
                                         <img style='vertical-align: middle; width: 25px; height: 25px; border-radius: 50%;'
                                             src='/storage/{{ Auth::user()->pp }}' alt='Avatar'>
                                     </a>
-                                    <div style="border-radius: 0;" class="dropdown-menu dropdown-menu-right"
+                                    <div style="border-radius: 0;" class="dropdown-menu dropdown-menu-right m-0 p-0"
                                         aria-labelledby="dropdownMenuButton">
                                         <a href="/home/{{ Auth::user()->username }}"
                                             class="p-3 dropdown-item border-bottom">
