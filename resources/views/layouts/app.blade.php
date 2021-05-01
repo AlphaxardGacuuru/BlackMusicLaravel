@@ -24,7 +24,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    <link href="{{ asset('scss/custom.scss') }}" rel="stylesheet">
     {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet"> --}}
     <!-- Filepond plugin, add to document <head> -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
@@ -37,8 +36,11 @@
     <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
 </head>
 <body>
+
     <br>
     @yield('content')
+    <br>
+    <br>
 
     <div class="row">
         <div class="col-sm-4"></div>

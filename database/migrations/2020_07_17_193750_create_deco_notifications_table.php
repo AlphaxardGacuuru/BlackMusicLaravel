@@ -14,9 +14,9 @@ class CreateDecoNotificationsTable extends Migration
     public function up()
     {
         Schema::create('deco_notifications', function (Blueprint $table) {
-            $table->id('dn_id');
+            $table->id();
             $table->string('username')->nullable();
-            $table->string('dn_from')->nullable();
+            $table->string('artist')->nullable();
             $table->timestamps();
         });
     }

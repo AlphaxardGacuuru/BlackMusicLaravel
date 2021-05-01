@@ -14,7 +14,7 @@ class CreateVideoLikesTable extends Migration
     public function up()
     {
         Schema::create('video_likes', function (Blueprint $table) {
-            $table->id('video_like_id');
+            $table->id();
             $table->string('video_id')->nullable();
             $table->string('username')->nullable();
             $table->timestamps();

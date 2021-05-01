@@ -14,7 +14,7 @@ class CreatePollsTable extends Migration
     public function up()
     {
         Schema::create('polls', function (Blueprint $table) {
-            $table->id('poll_id');
+            $table->id();
             $table->string('post_id')->nullable();
             $table->string('username')->nullable();
             $table->string('parameter')->nullable();

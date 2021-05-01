@@ -64,8 +64,8 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        $posts = Post::orderBy('post_id', 'desc')->get();
-        $users = User::orderBy('user_id', 'desc')->get();
+        $posts = Post::orderBy('id', 'desc')->get();
+        $users = User::orderBy('id', 'desc')->get();
         $follows = Follow::get();
         $videos = Videos::orderBy('id', 'desc')->get();
         $boughtVideos = BoughtVideos::get();
@@ -128,9 +128,9 @@ class HomeController extends Controller
             $user->phone = auth()->user()->phone;
         }
         if ($request->filled('acc-type')) {
-            $user->acc_type = $request->input('acc-type');
+            $user->account_type = $request->input('account-type');
         } else {
-            $user->acc_type = auth()->user()->acc_type;
+            $user->account_type = auth()->user()->account_type;
         }
         if ($request->filled('email')) {
             $user->email = $request->input('email');

@@ -1,4 +1,5 @@
 @extends('layouts/app')
+
 @section('content')
 @include('inc/topnav')
 <div class="row">
@@ -18,7 +19,7 @@
                     <button class="edit-button mysonar-btn">EDIT</button>
                 </div>
         </div> --}}
-        {!! Form::open(['action' => ['HomeController@update', Auth::user()->user_id], 'method' => 'POST',
+        {!! Form::open(['action' => ['HomeController@update', Auth::user()->id], 'method' => 'POST',
         'enctype' => 'multipart/form-data']) !!}
         <br>
         {{ Form::label('pp', 'Profile Pic', ['class' => 'float-left']) }}

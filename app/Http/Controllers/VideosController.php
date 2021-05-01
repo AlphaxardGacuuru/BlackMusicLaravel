@@ -32,7 +32,7 @@ class VideosController extends Controller
         $videos = Videos::where('username', auth()->user()->username)->orderby('id', 'DESC')->get();
         $videosSingles = Videos::where('username', auth()->user()->username)->Where('album', '')->orWhere('album', 'Single')->get();
         $videoAlbums = VideoAlbums::where('username', auth()->user()->username)->orderby('id', 'ASC')->get();
-        $downloads = BoughtVideos::where('bought_video_artist', auth()->user()->username)->count();
+        $downloads = BoughtVideos::where('artist', auth()->user()->username)->count();
         $payouts = Payouts::where('username', auth()->user()->username)->sum('amount');
         return view('/pages/videos')->with(['videos' => $videos, 'videosSingles' => $videosSingles, 'videoAlbums' => $videoAlbums, 'downloads' => $downloads, 'payouts' => $payouts]);
     }

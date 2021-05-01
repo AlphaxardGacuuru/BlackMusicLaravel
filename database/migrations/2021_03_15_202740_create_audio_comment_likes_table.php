@@ -15,7 +15,7 @@ class CreateAudioCommentLikesTable extends Migration
     {
         Schema::create('audio_comment_likes', function (Blueprint $table) {
             $table->id();
-            $table->string('audio_comment_id')->nullable();
+            $table->string('comment_id')->nullable();
             $table->string('username')->nullable();
             $table->timestamps();
         });

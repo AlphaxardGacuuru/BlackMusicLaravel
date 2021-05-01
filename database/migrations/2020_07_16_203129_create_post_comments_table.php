@@ -14,7 +14,7 @@ class CreatePostCommentsTable extends Migration
     public function up()
     {
         Schema::create('post_comments', function (Blueprint $table) {
-            $table->id('post_comment_id');
+            $table->id();
             $table->string('post_id')->nullable();
             $table->string('username')->nullable();
             $table->string('text')->nullable();

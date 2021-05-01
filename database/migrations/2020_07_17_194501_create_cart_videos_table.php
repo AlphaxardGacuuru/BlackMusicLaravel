@@ -14,7 +14,7 @@ class CreateCartVideosTable extends Migration
     public function up()
     {
         Schema::create('cart_videos', function (Blueprint $table) {
-            $table->id('cart_video_id');
+            $table->id();
             $table->string('video_id')->nullable();
             $table->string('username')->nullable();
             $table->timestamps();

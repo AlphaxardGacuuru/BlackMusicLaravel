@@ -14,7 +14,7 @@ class CreateVideoCommentsTable extends Migration
     public function up()
     {
         Schema::create('video_comments', function (Blueprint $table) {
-            $table->id('video_comment_id');
+            $table->id();
             $table->string('video_id')->nullable();
             $table->string('text')->nullable();
             $table->string('username')->nullable();

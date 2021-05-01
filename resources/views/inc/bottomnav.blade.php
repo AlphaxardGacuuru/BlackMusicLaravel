@@ -27,7 +27,7 @@
                     $colour = "white";
                     }
                 @endphp
-                <a href="/charts/newlyReleased/All" style="color: <?php if(Route::is('charts.index')){echo 'gold';}else{echo 'white';}?>; text-align:
+                <a href="/video-charts/newlyReleased/All" style="color: <?php if(Route::is('charts.index')){echo 'gold';}else{echo 'white';}?>; text-align:
                     center; font-size: 10px; font-weight: 100;">
                     <span style="font-size: 20px;" class="nav-link">
                         <svg class="bi bi-compass" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"

@@ -14,9 +14,9 @@ class CreateFollowNotificationsTable extends Migration
     public function up()
     {
         Schema::create('follow_notifications', function (Blueprint $table) {
-            $table->id('follow_notification_id');
+            $table->id();
             $table->string('username')->nullable();
-            $table->string('fn_follower')->nullable();
+            $table->string('follower')->nullable();
             $table->timestamps();
         });
     }

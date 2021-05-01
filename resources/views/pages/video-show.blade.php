@@ -1,4 +1,5 @@
 @extends('layouts/app')
+
 @section('content')
 @include('inc/topnav')
 <br>
@@ -191,7 +192,7 @@
                 $followQuery = $follows->where('followed', $show->username)->where('username',
                 $user->username)->count();
                 $boughtVideosQuery = $boughtVideos->where('username',
-                $user->username)->where('bought_video_artist', $musician->username)->count();
+                $user->username)->where('artist', $musician->username)->count();
             @endphp
             @if($followQuery == 0)
                 @if($boughtVideosQuery > 0
@@ -296,8 +297,8 @@
             || $user->username == "@blackmusic")
             @foreach($videoComments as $videoComment)
                 @php
-                    $videoCommentLikeCount = $videoCommentLikes->where('video_comment_id',
-                    $videoComment->video_comment_id)->where('username', $user->username)->count();
+                    $videoCommentLikeCount = $videoCommentLikes->where('comment_id',
+                    $videoComment->id)->where('username', $user->username)->count();
                 @endphp
                 @if($videoCommentLikeCount > 0)
                     @php
@@ -351,54 +352,43 @@
                         </p>
 
                         {{-- Likes --}}
-                        {!!Form::open(['id' => $videoComment->video_comment_id, 'action' =>
+                        {!!Form::open(['id' => $videoComment->id, 'action' =>
                         'VideoCommentLikesController@store',
                         'method' => 'POST'])!!}
-                        {{ Form::hidden('video-comment-id', $videoComment->video_comment_id) }}
+                        {{ Form::hidden('comment-id', $videoComment->id) }}
                         {{ Form::hidden('video-id', $videoComment->video_id) }}
                         {!!Form::close()!!}
                         <a href='#' onclick='event.preventDefault();
-													 document.getElementById("{{ $videoComment->video_comment_id }}").submit();'>
+													 document.getElementById("{{ $videoComment->id }}").submit();'>
                             {!!$heart!!}
                         </a>
-                        <span style='cursor: pointer;' class='w3dropup float-right'>
-                            <span>
+                        <!-- Default dropup button -->
+                        <div class="dropup float-right">
+                            <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                                 <svg class="bi bi-three-dots-vertical" width="1em" height="1em" viewBox="0 0 16 16"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                 </svg>
-                            </span>
-                            <span class='w3dropup-content'>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-0" style="border-radius: 0;">
                                 @php
-                                    $videoCommentD = 'comment-delete-form' . $videoComment->video_comment_id;
+                                    $videoCommentD = 'comment-delete-form' . $videoComment->id;
                                 @endphp
-                                @if($videoComment->username != $user->username)
-                                    @if($videoComment->username
-                                        != "@blackmusic")
-                                        <a href='mute.php?username=$username'>
-                                            <h6>Mute
-                                            </h6>
-                                        </a>
-                                        <a href='follows.php?username=$username'>
-                                            <h6>Unfollow
-                                                {{ $videoComment->poster_id }}
-                                            </h6>
-                                        </a>
-                                    @endif
-                                @else
+                                @if($videoComment->username == $user->username)
                                     {!!Form::open(['id' => $videoCommentD, 'action' =>
                                     ['VideoCommentsController@destroy',
-                                    $videoComment->video_comment_id], 'method' => 'POST'])!!}
+                                    $videoComment->id], 'method' => 'POST'])!!}
                                     {{ Form::hidden('_method', 'DELETE') }}
                                     {!!Form::close()!!}
-                                    <a href='#' onclick='event.preventDefault();
+                                    <a href='#' class="dropdown-item" onclick='event.preventDefault();
 													 document.getElementById("{{ $videoCommentD }}").submit();'>
-                                        <h6>Delete comment</h6>
+                                        <h6 class="p-1">Delete comment</h6>
                                     </a>
                                 @endif
-                            </span>
-                        </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach
@@ -461,36 +451,42 @@
                 @endphp
                 @if($cartVideoQuery > 0)
                     @php
-                        $cart = "<button class='btn btn-light mb-1' style='min-width: 40px; height: 33px;'>
+                        $cart = "
+                        <button class='btn btn-light mb-1' style='min-width: 40px; height: 33px;'>
                             <svg class='bi bi-cart3' width='1em' height='1em' viewBox='0 0 16 16' fill='currentColor'
                                 xmlns='http://www.w3.org/2000/svg'>
                                 <path fill-rule='evenodd'
                                     d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z' />
-                            </svg>";
-                            $bbtn = "<button class='btn mysonar-btn green-btn float-right'>buy</button>";
+                            </svg>
+                        </button>";
+                        $bbtn = "<button class='btn mysonar-btn green-btn float-right'>buy</button>";
                     @endphp
                 @else
                     @if($boughtVideoQuery > 0)
                         @php
                             $cart = "";
-                            $bbtn = "<button class='btn btn-sm btn-light float-right'>Owned
+                            $bbtn = "
+                            <button class='btn btn-sm btn-light float-right'>Owned
                                 <svg class='bi bi-check' width='1em' height='1em' viewBox='0 0 16 16'
                                     fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
                                     <path fill-rule='evenodd'
                                         d='M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z' />
-                                </svg>";
+                                </svg>
+                            </button>";
                         @endphp
                     @else
                         @php
-                            $cart = "<button class='mysonar-btn mb-1' style='min-width: 40px;'>
+                            $cart = "
+                            <button class='mysonar-btn mb-1' style='min-width: 40px;'>
                                 <svg class='bi bi-cart3' width='1em' height='1em' viewBox='0 0 16 16'
                                     fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
                                     <path fill-rule='evenodd'
                                         d='M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z' />
-                                </svg>";
-                                $cForm = "";
-                                $bbtn = "<button class='btn mysonar-btn green-btn float-right'>buy</button>";
-                                $dForm = "";
+                                </svg>
+                            </button>";
+                            $cForm = "";
+                            $bbtn = "<button class='btn mysonar-btn green-btn float-right'>buy</button>";
+                            $dForm = "";
                         @endphp
                     @endif
                 @endif
@@ -518,7 +514,7 @@
                             'CartVideosController@store',
                             'method' => 'POST'])!!}
                             {{ Form::hidden('cart-video-song', $video->id) }}
-                            {{ Form::hidden('to', 'charts/' . $show->id) }}
+                            {{ Form::hidden('to', '/video-charts/' . $show->id) }}
                             {!!Form::close()!!}
                             {{-- Buy song --}}
                             {!!Form::open(['id' => 'video-buy-form' . $video->id, 'action' =>

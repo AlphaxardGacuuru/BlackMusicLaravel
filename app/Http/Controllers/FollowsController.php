@@ -63,7 +63,7 @@ class FollowsController extends Controller
 
             $notification = new FollowNotifications;
             $notification->username = $request->input('musician');
-            $notification->fn_follower = auth()->user()->username;
+            $notification->follower = auth()->user()->username;
             $notification->save();
 
         }

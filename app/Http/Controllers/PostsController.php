@@ -35,10 +35,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('post_id', 'desc')->get();
-        $users = User::orderBy('user_id', 'desc')->get();
+        $posts = Post::orderBy('id', 'desc')->get();
+        $users = User::orderBy('id', 'desc')->get();
         $follows = Follow::get();
-        $videos = Videos::orderBy('id', 'desc')->get();
+        $videos = Videos::orderBy('id', 'desc')->limit(10)->get();
         $boughtVideos = BoughtVideos::get();
         $cartVideos = CartVideos::get();
         $polls = Polls::get();
@@ -103,8 +103,8 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::where('post_id', $id)->first();
-        $comments = PostComments::where('post_id', $id)->orderby('post_comment_id', 'DESC')->get();
+        $post = Post::where('id', $id)->first();
+        $comments = PostComments::where('post_id', $id)->orderby('id', 'DESC')->get();
         return view('pages/post-show')->with(['post' => $post, 'comments' => $comments]);
     }
 
@@ -139,12 +139,12 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::where('post_id', $id)->first();
+        $post = Post::where('id', $id)->first();
         Storage::delete('public/' . $post->media);
-        Polls::where('post_id', $post->post_id)->delete();
-        $postComment = PostComments::where('post_id', $id)->get();
-        foreach ($postComment as $postComment) {
-            PostCommentLikes::where('post_comment_id', $postComment->post_comment_id)->delete();
+        Polls::where('post_id', $post->id)->delete();
+        $comments = PostComments::where('post_id', $id)->get();
+        foreach ($comments as $comment) {
+            PostCommentLikes::where('comment_id', $comment->id)->delete();
         }
         PostComments::where('post_id', $id)->delete();
         PostLikes::where('post_id', $id)->delete();

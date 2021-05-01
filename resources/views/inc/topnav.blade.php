@@ -14,8 +14,8 @@
         public $email;
         public $phone;
         public $gender;
-        public $acc_type = 'normal';
-        public $acc_type_2;
+        public $account_type = 'normal';
+        public $account_type_2;
         public $pp = 'profile-pics/male_avatar.png';
         public $pb;
         public $bio;
@@ -167,10 +167,10 @@
                                             {{ $cartVideos->count() }}
                                         </span>
                                     @endif
-                                    <div style="border-radius: 0;" class="dropdown-menu dropdown-menu-right"
+                                    <div style="border-radius: 0;" class="m-0 p-0 dropdown-menu dropdown-menu-right"
                                         aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item border-bottom" href="#">
-                                            <h4>Shopping Cart</h4>
+                                            <h4 class="p-2 pr-5 pl-5">Shopping Cart</h4>
                                         </a>
                                         <div style="max-height: 500px; overflow-y: scroll;">
                                             @if($cartVideos->count() > 0)
@@ -196,11 +196,13 @@
                                                 @endforeach
                                             @endif
                                             @if($cartVideos->count() > 0)
-                                                <a class="dropdown-item p-2" href="/cart">
+                                                <div class="p-2">
                                                     <center>
-                                                        <h6>Checkout</h6>
+                                                        <a href="/cart">
+                                                            <button class="mysonar-btn">checkout</button>
+                                                        </a>
                                                     </center>
-                                                </a>
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -214,7 +216,7 @@
                                         $user->username)->get();
                                         $followNotifications = FollowNotifications::where('username',
                                         $user->username)->get();
-                                        $videoNotifications = VideoNotifications::where('vn_artist',
+                                        $videoNotifications = VideoNotifications::where('artist',
                                         $user->username)->get();
                                         $notificationBadge = $notifications->count() + $decoNotifications->count() +
                                         $followNotifications->count() + $videoNotifications->count();
@@ -234,23 +236,23 @@
                                             {{ $notificationBadge }}
                                         </span>
                                     @endif
-                                    <div style="border-radius: 0;" class="dropdown-menu dropdown-menu-right"
+                                    <div style="border-radius: 0;" class="m-0 p-0 dropdown-menu dropdown-menu-right"
                                         aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item border-bottom" href="#">
-                                            <h4>Notifications</h4>
+                                            <h4 class="p-2 pr-5 pl-5">Notifications</h4>
                                         </a>
                                         <div style="max-height: 500px; overflow-y: scroll;">
                                             {{-- Notifications --}}
                                             @foreach($notifications as $notification)
-                                                <div class='border-bottom'>
+                                                <div class='p-2 pt-0 pb-0 border-bottom'>
                                                     {!!Form::open(['id' => 'notification-form', 'action' =>
-                                                    ['NotificationsController@destroy', $notification->notification_id],
+                                                    ['NotificationsController@destroy', $notification->id],
                                                     'method' => 'POST'])!!}
                                                     {{ Form::hidden('_method', 'DELETE') }}
                                                     {!!Form::close()!!}
-                                                    <a href='#' class="p-2" onclick='event.preventDefault();
+                                                    <a href='#' class="m-0 p-0" onclick='event.preventDefault();
 													 document.getElementById("notification-form").submit();'>
-                                                        <h6>{{ $notification->message }}</h6>
+                                                        <h6 class="mb-0">{{ $notification->message }}</h6>
                                                     </a>
                                                 </div>
                                             @endforeach
@@ -259,7 +261,7 @@
                                                 <div class='p-2 border-bottom'>
                                                     <a href='#'>
                                                         <p>
-                                                            <small>{{ $decoNotification->dn_from }} just Decorated
+                                                            <small>{{ $decoNotification->artist }} just Decorated
                                                                 you.</small>
                                                         </p>
                                                     </a>
@@ -275,17 +277,18 @@
                                             @endif
                                             @foreach($followNotifications as $followNotification)
                                                 <div class='p-1 border-bottom'>
-                                                    {!!Form::open(['id' => $followNotification->follow_notification_id,
+                                                    {!!Form::open(['id' => $followNotification->id,
                                                     'action' =>
                                                     ['FollowNotificationsController@destroy',
-                                                    $followNotification->fn_follower ], 'method' => 'POST'])!!}
+                                                    $followNotification->follower ], 'method' => 'POST'])!!}
                                                     {{ Form::hidden('_method', 'DELETE') }}
                                                     {!!Form::close()!!}
                                                     <a href='#' onclick='event.preventDefault();
-													 document.getElementById("{{ $followNotification->follow_notification_id }}").submit();'>
+													 document.getElementById("{{ $followNotification->id }}").submit();'>
                                                         <p class="m-0">
-                                                            <small>{{ $followNotification->fn_follower }} became a
-                                                                fan.</small>
+                                                            <small>
+                                                                {{ $followNotification->follower }} became a fan.
+                                                            </small>
                                                         </p>
                                                     </a>
                                                 </div>
@@ -300,14 +303,14 @@
                                             @endif
                                             @foreach($videoNotifications as $videoNotification)
                                                 <div class='p-1 border-bottom'>
-                                                    {!!Form::open(['id' => $videoNotification->vn_id,
+                                                    {!!Form::open(['id' => $videoNotification->id,
                                                     'action' =>
                                                     ['VideoNotificationsController@destroy',
-                                                    $videoNotification->vn_id ], 'method' => 'POST'])!!}
+                                                    $videoNotification->id ], 'method' => 'POST'])!!}
                                                     {{ Form::hidden('_method', 'DELETE') }}
                                                     {!!Form::close()!!}
                                                     <a href='#' onclick='event.preventDefault();
-													 document.getElementById("{{ $videoNotification->vn_id }}").submit();'>
+													 document.getElementById("{{ $videoNotification->id }}").submit();'>
                                                         <p class="m-0">
                                                             <small>{{ $videoNotification->username }} just bought
                                                                 {{ $videoNotification->videos->name }}</small>

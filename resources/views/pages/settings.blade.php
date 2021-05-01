@@ -24,21 +24,22 @@
         <div class="contact-form form-group">
             <h1>UPDATE PASSWORD</h1>
             <br>
-            {!! Form::open(['action' => ['HomeController@update', Auth::user()->user_id], 'method' => 'POST', 'enctype'
+            {!! Form::open(['action' => ['HomeController@update', Auth::user()->id], 'method' => 'POST', 'enctype'
             => 'multipart/form-data']) !!}
             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'New Password']) }}
             <br>
             {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Password']) }}
             <br>
-            @if(Auth::user()->acc_type == 'musician')
+            @if(Auth::user()->account_type == 'musician')
                 <h1>UPDATE WITHDRAWAL AMOUNT</h1>
                 {{ Form::text('withdrawal', null, ['class' => 'form-control', 'placeholder' => 'KES ' . Auth::user()->withdrawal]) }}
                 <br>
             @else
                 <h1>BECOME A MUSICIAN</h1>
                 <br>
-                <h6>{{ Form::radio('acc-type', 'musician') }} I'm a
-                    musician</h6>
+                <h6>{{ Form::radio('acc-type', 'musician') }}
+                    I'm a musician
+                </h6>
                 <br>
                 <br>
                 <br>

@@ -27,9 +27,8 @@
                             <small>{{ $cartVideo->videos->username }}</small>
                         </h6>
                         <h6 style='color: green;'>KES 20</h6>
-                        {!!Form::open(['action' => ['CartVideosController@destroy', $cartVideo->cart_video_id],
-                        'method' =>
-                        'POST'])!!}
+                        {!!Form::open(['action' => ['CartVideosController@destroy', $cartVideo->id],
+                        'method' => 'POST'])!!}
                         {{ Form::hidden('_method', 'DELETE') }}
                         {{Form::button('
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash"

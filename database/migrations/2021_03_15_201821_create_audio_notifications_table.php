@@ -17,7 +17,7 @@ class CreateAudioNotificationsTable extends Migration
             $table->id();
             $table->string('audio_id')->nullable();
             $table->string('username')->nullable();
-            $table->string('an_artist')->nullable();
+            $table->string('artist')->nullable();
             $table->timestamps();
         });
     }

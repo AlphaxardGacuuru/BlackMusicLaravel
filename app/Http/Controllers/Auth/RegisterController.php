@@ -77,16 +77,14 @@ class RegisterController extends Controller
         $follow = new Follow;
         $follow->followed = $data['username'];
         $follow->username = $data['username'];
-        $follow->muted = "no";
-        $follow->blocked = "no";
+        $follow->muted = "show";
         $follow->save();
 
         /* User should follow @blackmusic */
         $follow = new Follow;
         $follow->followed = '@blackmusic';
         $follow->username = $data['username'];
-        $follow->muted = "no";
-        $follow->blocked = "no";
+        $follow->muted = "show";
         $follow->save();
 
         return User::create([
@@ -98,8 +96,8 @@ class RegisterController extends Controller
             'remember_token' => $data['remember_token'],
             'phone' => $data['phone'],
             'gender' => $data['gender'],
-            'acc_type' => $data['acc_type'],
-            'acc_type_2' => $data['acc_type_2'],
+            'account_type' => $data['account_type'],
+            'account_type_2' => $data['account_type_2'],
             'pp' => $data['pp'],
             'pb' => $data['pb'],
             'bio' => $data['bio'],

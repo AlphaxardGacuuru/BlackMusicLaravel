@@ -14,8 +14,8 @@ class CreatePostCommentLikesTable extends Migration
     public function up()
     {
         Schema::create('post_comment_likes', function (Blueprint $table) {
-            $table->id('post_comment_like_id');
-            $table->string('post_comment_id')->nullable();
+            $table->id();
+            $table->string('comment_id')->nullable();
             $table->string('username')->nullable();
             $table->timestamps();
         });

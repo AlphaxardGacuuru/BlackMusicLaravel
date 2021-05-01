@@ -29,7 +29,7 @@ class BoughtVideosController extends Controller
      */
     public function index()
     {
-        $boughtVideos = BoughtVideos::where('username', auth()->user()->username)->orderby('bought_video_id', 'DESC')->get();
+        $boughtVideos = BoughtVideos::where('username', auth()->user()->username)->orderby('id', 'DESC')->get();
         return view('/pages/library')->with('boughtVideos', $boughtVideos);
     }
 
@@ -66,22 +66,22 @@ class BoughtVideosController extends Controller
                     /* Add song to videos_bought */
                     $boughtVideos = new BoughtVideos;
                     $boughtVideos->video_id = $vCartCheck->video_id;
-                    $boughtVideos->bought_video_reference = "ODT2TA2060";
+                    $boughtVideos->reference = "ODT2TA2060";
                     $boughtVideos->username = auth()->user()->username;
-                    $boughtVideos->bought_video_name = $vCartCheck->videos->video_name;
-                    $boughtVideos->bought_video_artist = $vCartCheck->videos->username;
+                    $boughtVideos->name = $vCartCheck->videos->video_name;
+                    $boughtVideos->artist = $vCartCheck->videos->username;
                     $boughtVideos->save();
 
                     /* Showing video song bought notification */
                     $videoNotifications = new VideoNotifications;
                     $videoNotifications->video_id = $vCartCheck->video_id;
                     $videoNotifications->username = auth()->user()->username;
-                    $videoNotifications->vn_artist = $vCartCheck->videos->username;
+                    $videoNotifications->artist = $vCartCheck->videos->username;
                     $videoNotifications->save();
 
                     /* Add deco if necessary */
                     /* Check if songs are 10 */
-                    $userDecos = DB::table('decos')->where('username', auth()->user()->username)->where('deco_from', $vCartCheck->videos->username)->count();
+                    $userDecos = DB::table('decos')->where('username', auth()->user()->username)->where('artist', $vCartCheck->videos->username)->count();
                     $uservideos = DB::table('bought_videos')->where('username', auth()->user()->username)->where('username', $vCartCheck->videos->username)->count();
                     $uservideos = $uservideos / 10;
                     $decoBalance = $uservideos - $userDecos;
@@ -90,14 +90,14 @@ class BoughtVideosController extends Controller
                     /* If deco balance >= 1 then add deco */
                     if ($decoPermission >= 1) {
                         $deco = new Decos;
-                        $deco->deco_to = auth()->user()->username;
-                        $deco->deco_from = $vCartCheck->video->username;
+                        $deco->username = auth()->user()->username;
+                        $deco->artist = $vCartCheck->video->username;
                         $deco->save();
 
                         /* Add deco notification */
                         $decoNotification = new DecoNotifications;
-                        $decoNotification->dn_to = auth()->user()->username;
-                        $decoNotification->dn_from = $vCartCheck->video->username;
+                        $decoNotification->username = auth()->user()->username;
+                        $decoNotification->artist = $vCartCheck->video->username;
                         $decoNotification->save();
                     }
                     /* Delete from cart */

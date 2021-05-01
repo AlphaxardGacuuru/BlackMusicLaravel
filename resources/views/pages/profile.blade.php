@@ -1,4 +1,5 @@
 @extends('layouts/app')
+
 @section('content')
 @include('inc/topnav')
 @if($id == Auth::user()->username)
@@ -69,7 +70,7 @@
             @foreach($posts as $post)
                 {{-- Likes --}}
                 @php
-                    $postLikes = $post->post_likes->where('post_id', $post->post_id)->where('username',
+                    $postLikes = $post->post_likes->where('post_id', $post->id)->where('username',
                     $profile->username)->count();
                 @endphp
                 @if($postLikes > 0)
@@ -100,22 +101,22 @@
                     $followCount = $follows->where('followed', $post->username)->where('username',
                     $profile->username)->count();
                     /* Get polls */
-                    $getPolls = $polls->where('post_id', $post->post_id);
+                    $getPolls = $polls->where('post_id', $post->id);
                     /* Get total polls */
                     $pollTime = (time() - strtotime($post->created_at)) / 3600;
                     if ($post->username == $profile->username || $pollTime > 24) {
-                    $votes = $polls->where('post_id', $post->post_id)->count();
+                    $votes = $polls->where('post_id', $post->id)->count();
                     } else {
                     $votes = "ongoing...";
                     }
                     /* Check if user has voted */
-                    $userPoll = $polls->where('post_id', $post->post_id)->where('username', $profile->username);
+                    $userPoll = $polls->where('post_id', $post->id)->where('username', $profile->username);
                 @endphp
                 {{-- Making the polls look better when they appear --}}
                 {{-- Get parameter 1 --}}
                 @if(!empty($post->parameter_1))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_1)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $profile->username || $pollTime > 24) {
@@ -123,10 +124,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $profile->username)->where('parameter', $post->parameter_1)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() *
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() *
                         100);
                         } else {
                         $percentage = 0;
@@ -190,7 +191,7 @@
                 {{-- Get parameter 2 --}}
                 @if(!empty($post->parameter_2))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_2)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $profile->username || $pollTime > 24) {
@@ -198,10 +199,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $profile->username)->where('parameter', $post->parameter_2)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() *
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() *
                         100);
                         } else {
                         $percentage = 0;
@@ -265,7 +266,7 @@
                 {{-- Get parameter 3 --}}
                 @if(!empty($post->parameter_3))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_3)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $profile->username || $pollTime > 24) {
@@ -273,10 +274,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $profile->username)->where('parameter', $post->parameter_3)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() *
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() *
                         100);
                         } else {
                         $percentage = 0;
@@ -340,7 +341,7 @@
                 {{-- Get parameter 4 --}}
                 @if(!empty($post->parameter_4))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_4)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $profile->username || $pollTime > 24) {
@@ -348,10 +349,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $profile->username)->where('parameter', $post->parameter_4)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() *
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() *
                         100);
                         } else {
                         $percentage = 0;
@@ -415,7 +416,7 @@
                 {{-- Get parameter 5 --}}
                 @if(!empty($post->parameter_5))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_5)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $profile->username || $pollTime > 24) {
@@ -423,10 +424,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $profile->username)->where('parameter', $post->parameter_5)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() *
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() *
                         100);
                         } else {
                         $percentage = 0;
@@ -529,48 +530,48 @@
                                 {{-- Parameter 1 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_1 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_1) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 2 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_2 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_2) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 3 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_3 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_3) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 4 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_4 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_4) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 5 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_5 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_5) }}
                                 {!! $totalVotes !!}
                                 {!!Form::close()!!}
                             @endif
 
                             {{-- Likes --}}
-                            {!!Form::open(['id' => $post->post_id, 'action' => 'PostLikesController@store',
+                            {!!Form::open(['id' => $post->id, 'action' => 'PostLikesController@store',
                             'method' => 'POST'])!!}
-                            {{ Form::hidden('post-id', $post->post_id) }}
+                            {{ Form::hidden('post-id', $post->id) }}
                             {{ Form::hidden('to', '/home/' . $profile->username) }}
                             {!!Form::close()!!}
                             <a href='#' onclick='event.preventDefault();
-													 document.getElementById("{{ $post->post_id }}").submit();'>
+													 document.getElementById("{{ $post->id }}").submit();'>
                                 {!!$heart!!}
                             </a>
                             {{-- Comment --}}
-                            <a href="posts/{{ $post->post_id }}">
+                            <a href="/posts/{{ $post->id }}">
                                 <svg class="bi bi-chat ml-5" width="1.2em" height="1.2em" viewBox="0 0 16 16"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -590,7 +591,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right p-0" style="border-radius: 0;">
                                     @php
-                                        $postD = 'post-delete-form' . $post->post_id;
+                                        $postD = 'post-delete-form' . $post->id;
                                     @endphp
                                     @if($profile->username
                                         == Auth::user()->username)
@@ -607,7 +608,7 @@
                                         @else
                                             {!!Form::open(['id' => $postD, 'action' =>
                                             ['PostsController@destroy',
-                                            $post->post_id], 'method' => 'POST'])!!}
+                                            $post->id], 'method' => 'POST'])!!}
                                             {{ Form::hidden('_method', 'DELETE') }}
                                             {!!Form::close()!!}
                                             <a href='#' class="dropdown-item" onclick='event.preventDefault();
@@ -629,7 +630,7 @@
                                         @else
                                             {!!Form::open(['id' => $postD, 'action' =>
                                             ['PostsController@destroy',
-                                            $post->post_id], 'method' => 'POST'])!!}
+                                            $post->id], 'method' => 'POST'])!!}
                                             {{ Form::hidden('_method', 'DELETE') }}
                                             {!!Form::close()!!}
                                             <a href='#' class="dropdown-item" onclick='event.preventDefault();

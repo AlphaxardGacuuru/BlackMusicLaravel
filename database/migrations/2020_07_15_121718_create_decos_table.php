@@ -14,9 +14,9 @@ class CreateDecosTable extends Migration
     public function up()
     {
         Schema::create('decos', function (Blueprint $table) {
-            $table->id('deco_id');
+            $table->id();
             $table->string('username')->nullable();
-            $table->string('deco_from')->nullable();
+            $table->string('artist')->nullable();
             $table->timestamps();
         });
     }

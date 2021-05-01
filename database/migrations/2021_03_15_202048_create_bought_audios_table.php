@@ -16,10 +16,10 @@ class CreateBoughtAudiosTable extends Migration
         Schema::create('bought_audios', function (Blueprint $table) {
             $table->id();
             $table->string('audio_id')->nullable();
-            $table->string('bought_audio_reference')->nullable();
+            $table->string('reference')->nullable();
             $table->string('username')->nullable();
-            $table->string('bought_audio_name')->nullable();
-            $table->string('bought_audio_artist')->nullable();
+            $table->string('name')->nullable();
+            $table->string('artist')->nullable();
             $table->timestamps();
         });
     }

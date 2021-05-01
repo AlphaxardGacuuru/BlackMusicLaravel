@@ -57,7 +57,7 @@ class VideoLikesController extends Controller
             $message = "Video liked";
         }
 
-        return redirect('/charts/' . $request->input('video-id'))->with('success', $message);
+        return redirect('/video-charts/' . $request->input('video-id'))->with('success', $message);
 
     }
 

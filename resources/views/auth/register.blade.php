@@ -100,9 +100,9 @@
 
             <input type="hidden" name="gender" value="">
 
-            <input type="hidden" name="acc_type" value="normal">
+            <input type="hidden" name="account_type" value="show">
 
-            <input type="hidden" name="acc_type_2" value="">
+            <input type="hidden" name="account_type_2" value="">
 
             <input type="hidden" name="pp" value="profile-pics/male_avatar.png">
 
@@ -110,19 +110,11 @@
 
             <input type="hidden" name="following" value="0">
 
-            <input type="hidden" name="fans" value="0">
-
-            <input type="hidden" name="deco" value="0">
-
             <input type="hidden" name="bio" value="">
 
             <input type="hidden" name="dob" value="">
 
             <input type="hidden" name="location" value="">
-
-            <input type="hidden" name="asongs_bought" value="0">
-
-            <input type="hidden" name="vsongs_bought" value="0">
 
             <input type="hidden" name="withdrawal" value="">
 

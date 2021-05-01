@@ -14,7 +14,7 @@ class CreateReferralsTable extends Migration
     public function up()
     {
         Schema::create('referrals', function (Blueprint $table) {
-            $table->id('referral_id');
+            $table->id();
             $table->string('username')->nullable();
             $table->string('referee')->nullable();
             $table->timestamps();

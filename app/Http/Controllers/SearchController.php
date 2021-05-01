@@ -55,7 +55,7 @@ class SearchController extends Controller
         $search->save();
 
         /* Search for users */
-        $results = User::where('username', 'like', '%' . $request->input('search') . '%')->where('acc_type', 'musician')->orWhere('name', 'like', '%' . $request->input('search') . '%')->where('acc_type', 'musician')->get();
+        $results = User::where('username', 'like', '%' . $request->input('search') . '%')->where('account_type', 'musician')->orWhere('name', 'like', '%' . $request->input('search') . '%')->where('account_type', 'musician')->get();
         $follows = Follow::get();
         $videos = Videos::orderBy('id', 'desc')->get();
         $boughtVideos = BoughtVideos::get();

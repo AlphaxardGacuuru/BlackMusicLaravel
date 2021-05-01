@@ -14,7 +14,7 @@ class CreatePayoutsTable extends Migration
     public function up()
     {
         Schema::create('payouts', function (Blueprint $table) {
-            $table->id('payout_id');
+            $table->id();
             $table->string('username')->nullable();
             $table->string('amount')->nullable();
             $table->timestamps();

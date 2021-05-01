@@ -14,7 +14,7 @@ class CreateFollowsTable extends Migration
     public function up()
     {
         Schema::create('follows', function (Blueprint $table) {
-            $table->id('follow_id');
+            $table->id();
             $table->string('followed')->nullable();
             $table->string('username')->nullable();
             $table->string('muted')->nullable();

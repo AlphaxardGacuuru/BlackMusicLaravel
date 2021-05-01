@@ -14,10 +14,10 @@ class CreateVideoNotificationsTable extends Migration
     public function up()
     {
         Schema::create('video_notifications', function (Blueprint $table) {
-            $table->id('vn_id');
+            $table->id();
             $table->string('video_id')->nullable();
             $table->string('username')->nullable();
-            $table->string('vn_artist')->nullable();
+            $table->string('artist')->nullable();
             $table->timestamps();
         });
     }

@@ -101,9 +101,9 @@ class PostCommentsController extends Controller
      */
     public function destroy($id)
     {
-        $PostComment = PostComments::where('post_comment_id', $id)->first();
-        $deleteCLikes = PostCommentLikes::where('post_comment_id', $id)->delete();
+        $postComment = PostComments::where('id', $id)->first();
+        $deleteCLikes = PostCommentLikes::where('comment_id', $id)->delete();
         PostComments::find($id)->delete();
-        return redirect('posts/' . $PostComment->post_id)->with('success', 'Comment deleted');
+        return redirect('posts/' . $postComment->post_id)->with('success', 'Comment deleted');
     }
 }

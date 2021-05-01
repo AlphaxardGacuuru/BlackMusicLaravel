@@ -1,4 +1,5 @@
 @extends('layouts/app')
+
 @section('content')
 @include('inc/topnav')
 {{-- defining user --}}
@@ -11,8 +12,8 @@
         public $email;
         public $phone;
         public $gender;
-        public $acc_type = 'normal';
-        public $acc_type_2;
+        public $account_type = 'normal';
+        public $account_type_2;
         public $pp = 'profile-pics/male_avatar.png';
         public $pb;
         public $bio;
@@ -30,7 +31,7 @@
     @endphp
 @endguest
 
-@if($user->acc_type == 'musician')
+@if($user->account_type == 'musician')
     <a href="posts/create" id="floatBtn">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pen"
             viewBox="0 0 16 16">
@@ -48,50 +49,46 @@
 <div class="row">
     <div class="col-sm-1 hidden"></div>
     <div class="col-sm-3 hidden">
-        <table class="table table-hover border">
-            <tr>
-                <td style="border: none;">
-                    <div class="avatar-thumbnail-sm" style="border-radius: 50%;">
-                        <a href='/home/{{ $user->username }}'>
-                            <img src='/storage/{{ $user->pp }}' width="100px" height="100px" alt='avatar'>
-                        </a>
-                    </div>
-                <td style="border: none;">
-                    <span>
-                        <h5
-                            style='padding: 0px 0px 0 0; margin: 0 0; width: 160px; white-space: nowrap; overflow: hidden; text-overflow: clip;'>
-                            {{ $user->name }}
-                        </h5>
-                        <h6
-                            style='padding: 0px 0px 0px 0px; margin: 0 0; width: 140px; white-space: nowrap; overflow: hidden; text-overflow: clip;'>
-                            <small>{{ $user->username }}</small>
-                        </h6>
-                        <span style='color: gold;'>
-                            <svg class="bi bi-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                            </svg>
-                        </span>
-                        <span style='font-size: 10px;'>
-                            @auth{{ $user->decos->count() }}@endauth</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h6>Posts</h6>
-                    <br>
-                </td>
-                <td style='color: purple;'>
-                    <a href='fans.php'>
-                        <h6>Fans</h6>
-                        @auth
-                            {{ $follows->where('followed', $user->username)->count() - 1 }}
-                        @endauth
+        <div class="d-flex p-2 border">
+            <div class="p-2 flex-fill">
+                <div class="avatar-thumbnail-sm" style="border-radius: 50%;">
+                    <a href='/home/{{ $user->username }}'>
+                        <img src='/storage/{{ $user->pp }}' width="100px" height="100px" alt='avatar'>
                     </a>
-                </td>
-            </tr>
-        </table>
+                </div>
+            </div>
+            <div class="p-2 flex-fill">
+                <h5 style='width: 160px; white-space: nowrap; overflow: hidden; text-overflow: clip;'>
+                    {{ $user->name }}
+                </h5>
+                <h6 style='width: 140px; white-space: nowrap; overflow: hidden; text-overflow: clip;'>
+                    <small>{{ $user->username }}</small>
+                </h6>
+                <span style='color: gold;'>
+                    <svg class="bi bi-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    </svg>
+                </span>
+                <span style='font-size: 10px;'>
+                    @auth{{ $user->decos->count() }}@endauth
+                </span>
+            </div>
+        </div>
+        <div class="d-flex p-2 border-bottom border-left border-right">
+            <div class="flex-fill">
+                <h6>Posts</h6>
+            </div>
+            <div class="flex-fill">
+                <a href='fans.php'>
+                    <h6>Fans</h6>
+                    @auth
+                        {{ $follows->where('followed', $user->username)->count() - 1 }}
+                    @endauth
+                </a>
+            </div>
+        </div>
         <!-- Profile info area End -->
         <br>
         <!-- Musician suggestions area -->
@@ -100,12 +97,12 @@
                 <h2>Musicians to follow</h2>
             </div>
             @foreach($users as $musician)
-                @if($musician->acc_type == 'musician')
+                @if($musician->account_type == 'musician')
                     @php
                         $followQuery = $follows->where('followed', $musician->username)->where('username',
                         $user->username)->count();
                         $boughtVideosQuery = $boughtVideos->where('username',
-                        $user->username)->where('bought_video_artist', $musician->username)->count();
+                        $user->username)->where('artist', $musician->username)->count();
                         if($followQuery == 0) {
                         if($boughtVideosQuery > 0 || $user->username == '@blackmusic') {
                         $fBtn =
@@ -218,29 +215,28 @@
                                         <img src='{{ $video->thumbnail }}' width="160em" height="90em">
                                     </a>
                                 </div>
-                                <h6
-                                    style='padding: 10px 5px 0 5px; margin: 0px; width: 150px; white-space: nowrap; overflow: hidden; text-overflow: clip;'>
-                                    {{ $video->name }}</h6>
+                                <h6 class="pt-2 pr-1 pl-1 pb-0 m-0"
+                                    style='width: 150px; white-space: nowrap; overflow: hidden; text-overflow: clip;'>
+                                    {{ $video->name }}
+                                </h6>
                                 <h6 style='margin: 0px 5px 0px 5px; padding: 0px 5px 0px 5px;'>
                                     <small>{{ $video->username }} {{ $video->ft }}</small>
                                 </h6>
                                 <h6>
-                                    <small style='margin: 0px 5px 0px 5px; padding: 0px 5px 0px 5px;'>
+                                    <small class="pt-2 pr-1 pl-1 pb-0 m-0">
                                         {{ $video->bought_videos->count() }} Downloads
                                     </small>
                                 </h6>
                                 {{-- Add song to cart --}}
                                 {!!Form::open(['action' => 'CartVideosController@store',
-                                'method'
-                                => 'POST'])!!}
+                                'method' => 'POST'])!!}
                                 {{ Form::hidden('cart-video-song', $video->id) }}
                                 {{ Form::hidden('to', 'posts') }}
                                 {{ $cart }}
                                 {!!Form::close()!!}
                                 {{-- Buy song --}}
                                 {!!Form::open(['action' => 'CartVideosController@store',
-                                'method'
-                                => 'POST'])!!}
+                                'method' => 'POST'])!!}
                                 {{ Form::hidden('cart-video-song', $video->id) }}
                                 {{ Form::hidden('to', 'cart') }}
                                 {{ $bbtn }}
@@ -260,7 +256,7 @@
             @foreach($posts as $post)
                 {{-- Likes --}}
                 @php
-                    $postLikes = $post->post_likes->where('post_id', $post->post_id)->where('username',
+                    $postLikes = $post->post_likes->where('post_id', $post->id)->where('username',
                     $user->username)->count();
                 @endphp
                 @if($postLikes > 0)
@@ -291,22 +287,22 @@
                     $followCount = $follows->where('followed', $post->username)->where('username',
                     $user->username)->count();
                     /* Get polls */
-                    $getPolls = $polls->where('post_id', $post->post_id);
+                    $getPolls = $polls->where('post_id', $post->id);
                     /* Get total polls */
                     $pollTime = (time() - strtotime($post->created_at)) / 3600;
                     if ($post->username == $user->username || $pollTime > 24) {
-                    $votes = $polls->where('post_id', $post->post_id)->count();
+                    $votes = $polls->where('post_id', $post->id)->count();
                     } else {
                     $votes = "ongoing...";
                     }
                     /* Check if user has voted */
-                    $userPoll = $polls->where('post_id', $post->post_id)->where('username', $user->username);
+                    $userPoll = $polls->where('post_id', $post->id)->where('username', $user->username);
                 @endphp
                 {{-- Making the polls look better when they appear --}}
                 {{-- Get parameter 1 --}}
                 @if(!empty($post->parameter_1))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_1)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $user->username || $pollTime > 24) {
@@ -314,10 +310,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $user->username)->where('parameter', $post->parameter_1)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() * 100);
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() * 100);
                         } else {
                         $percentage = 0;
                         }
@@ -380,7 +376,7 @@
                 {{-- Get parameter 2 --}}
                 @if(!empty($post->parameter_2))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_2)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $user->username || $pollTime > 24) {
@@ -388,10 +384,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $user->username)->where('parameter', $post->parameter_2)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() * 100);
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() * 100);
                         } else {
                         $percentage = 0;
                         }
@@ -454,7 +450,7 @@
                 {{-- Get parameter 3 --}}
                 @if(!empty($post->parameter_3))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_3)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $user->username || $pollTime > 24) {
@@ -462,10 +458,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $user->username)->where('parameter', $post->parameter_3)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() * 100);
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() * 100);
                         } else {
                         $percentage = 0;
                         }
@@ -528,7 +524,7 @@
                 {{-- Get parameter 4 --}}
                 @if(!empty($post->parameter_4))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_4)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $user->username || $pollTime > 24) {
@@ -536,10 +532,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $user->username)->where('parameter', $post->parameter_4)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() * 100);
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() * 100);
                         } else {
                         $percentage = 0;
                         }
@@ -602,7 +598,7 @@
                 {{-- Get parameter 5 --}}
                 @if(!empty($post->parameter_5))
                     @php
-                        $pollCheck = $polls->where('post_id', $post->post_id)->where('parameter',
+                        $pollCheck = $polls->where('post_id', $post->id)->where('parameter',
                         $post->parameter_5)->count();
                         $pollTime = (time() - strtotime($post->created_at)) / 3600;
                         if ($post->username == $user->username || $pollTime > 24) {
@@ -610,10 +606,10 @@
                         } else {
                         $votesTwo = "";
                         }
-                        $pollParaCheck = $polls->where('post_id', $post->post_id)->where('username',
+                        $pollParaCheck = $polls->where('post_id', $post->id)->where('username',
                         $user->username)->where('parameter', $post->parameter_5)->count();
                         if ($pollCheck > 0) {
-                        $percentage = round($pollCheck / $polls->where('post_id', $post->post_id)->count() * 100);
+                        $percentage = round($pollCheck / $polls->where('post_id', $post->id)->count() * 100);
                         } else {
                         $percentage = 0;
                         }
@@ -717,47 +713,47 @@
                                 {{-- Parameter 1 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_1 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_1) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 2 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_2 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_2) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 3 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_3 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_3) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 4 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_4 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_4) }}
                                 {!!Form::close()!!}
                                 {{-- Parameter 5 --}}
                                 {!!Form::open(['action' => 'PollsController@store', 'method' => 'POST'])!!}
                                 {!! $parameter_5 !!}
-                                {{ Form::hidden('post-id', $post->post_id) }}
+                                {{ Form::hidden('post-id', $post->id) }}
                                 {{ Form::hidden('parameter', $post->parameter_5) }}
                                 {!! $totalVotes !!}
                                 {!!Form::close()!!}
                             @endif
 
                             {{-- Likes --}}
-                            {!!Form::open(['id' => $post->post_id, 'action' => 'PostLikesController@store',
+                            {!!Form::open(['id' => $post->id, 'action' => 'PostLikesController@store',
                             'method' => 'POST'])!!}
-                            {{ Form::hidden('post-id', $post->post_id) }}
+                            {{ Form::hidden('post-id', $post->id) }}
                             {!!Form::close()!!}
                             <a href='#' onclick='event.preventDefault();
-													 document.getElementById("{{ $post->post_id }}").submit();'>
+													 document.getElementById("{{ $post->id }}").submit();'>
                                 {!!$heart!!}
                             </a>
                             {{-- Comment --}}
-                            <a href="posts/{{ $post->post_id }}">
+                            <a href="posts/{{ $post->id }}">
                                 <svg class="bi bi-chat ml-5" width="1.2em" height="1.2em" viewBox="0 0 16 16"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -777,31 +773,26 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right p-0" style="border-radius: 0;">
                                     @php
-                                        $postD = 'post-delete-form' . $post->post_id;
+                                        $postD = 'post-delete-form' . $post->id;
                                     @endphp
                                     @if($post->username != $user->username)
                                         @if($post->username
                                             != '@blackmusic')
-                                            <a href='mute.php?username=$username' class="dropdown-item">
-                                                <h6>Mute
-                                                </h6>
+                                            <a href='#' class="dropdown-item">
+                                                <h6>Mute</h6>
                                             </a>
-                                            <a href='follows.php?username=$username' class="dropdown-item">
-                                                <h6>Unfollow
-                                                    {{ $post->poster_id }}
-                                                </h6>
+                                            <a href='#' class="dropdown-item">
+                                                <h6>Unfollow {{ $post->username }}</h6>
                                             </a>
                                         @endif
                                     @else
                                         {!!Form::open(['id' => $postD, 'action' => ['PostsController@destroy',
-                                        $post->post_id], 'method' => 'POST'])!!}
+                                        $post->id], 'method' => 'POST'])!!}
                                         {{ Form::hidden('_method', 'DELETE') }}
                                         {!!Form::close()!!}
                                         <a href='#' class="dropdown-item" onclick='event.preventDefault();
 													 document.getElementById("{{ $postD }}").submit();'>
-                                            <h6>Delete
-                                                post
-                                            </h6>
+                                            <h6>Delete post</h6>
                                         </a>
                                     @endif
                                 </div>

@@ -69,7 +69,7 @@ class UserController extends Controller
             'remember_token' => $data['remember_token'],
             'phone' => $request->input('phone'),
             'gender' => $data['gender'],
-            'acc_type' => 'normal',
+            'account_type' => 'normal',
             'pp' => 'profile-pics/male_avatar.png',
             'pb' => 'img/',
         ]);

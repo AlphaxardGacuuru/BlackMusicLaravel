@@ -26,7 +26,7 @@
                 'multipart/form-data']) !!}
                 {{ Form::text('comment-text', '', ['class' => 'form-control', 'placeholder' => "Post your reply"]) }}
                 <br>
-                {{ Form::hidden('post-id', $post->post_id) }}
+                {{ Form::hidden('post-id', $post->id) }}
                 {{ Form::submit('comment', ['class' => 'btn mysonar-btn float-right']) }}
                 {!! Form::close() !!}
             </div>
@@ -35,7 +35,7 @@
             @foreach($comments as $comment)
                 <div class='media p-2 border-bottom'>
                     <div class='media-left'>
-                        <a href='#'>
+                        <a href='/home/{{ $comment->username }}'>
                             <img src='/storage/{{ $comment->user->pp }}'
                                 style='float: right; vertical-align: top; width: 40px; height: 40px; border-radius: 50%;'
                                 alt='avatar'>
@@ -61,8 +61,8 @@
                         <p class="mb-0">{{ $comment->text }}</p>
                         {{-- Comment Likes --}}
                         @php
-                            $postCommentLikes = $comment->post_comment_likes->where('post_comment_id',
-                            $comment->post_comment_id)->where('username',
+                            $postCommentLikes = $comment->post_comment_likes->where('comment_id',
+                            $comment->id)->where('username',
                             Auth::user()->username)->count();
                             if($postCommentLikes > 0) {
                             $heart ="<span style='color: #cc3300;'>
@@ -81,40 +81,44 @@
                             </svg>";
                             }
                         @endphp
-                        {!!Form::open(['id' => $comment->post_comment_id,
+                        {!!Form::open(['id' => $comment->id,
                         'action' => 'PostCommentLikesController@store',
                         'method' => 'POST'])!!}
-                        {{ Form::hidden('post-comment-id', $comment->post_comment_id) }}
-                        {{ Form::hidden('post-id', $comment->post->post_id) }}
+                        {{ Form::hidden('comment-id', $comment->id) }}
+                        {{ Form::hidden('post-id', $comment->post->id) }}
                         {!!Form::close()!!}
                         <a href='#' onclick='event.preventDefault();
-													 document.getElementById("{{ $comment->post_comment_id }}").submit();'>
+													 document.getElementById("{{ $comment->id }}").submit();'>
                             {!!$heart!!}
                         </a>
                         <small>{{ $comment->post_comment_likes->count() }}</small>
-                        <span style='cursor: pointer;' class='w3dropup float-right'>
-                            <span>
+                        <!-- Default dropup button -->
+                        <div class="dropup float-right">
+                            <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                                 <svg class="bi bi-three-dots-vertical" width="1em" height="1em" viewBox="0 0 16 16"
                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
                                         d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
                                 </svg>
-                            </span>
-                            <span class='w3dropup-content'>
-                                {!!Form::open(['id' => $comment->created_at, 'action' =>
-                                ['PostCommentsController@destroy', $comment->post_comment_id], 'method'
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right p-0" style="border-radius: 0;">
+                                @php
+                                    $commentD = 'comment-delete-form' . $comment->id;
+                                @endphp
+                                {!!Form::open(['id' => $commentD, 'action' =>
+                                ['PostCommentsController@destroy', $comment->id], 'method'
                                 => 'POST'])!!}
                                 {{ Form::hidden('_method', 'DELETE') }}
                                 {!!Form::close()!!}
                                 @if($comment->username == Auth::user()->username)
-                                    <a href="#"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('{{ $comment->created_at }}').submit();">
-                                        <h6>Delete comment</h6>
+                                    <a href="#" class="dropdown-item" onclick="event.preventDefault();
+                                                     document.getElementById('{{ $commentD }}').submit();">
+                                        <h6 class="p-1">Delete comment</h6>
                                     </a>
                                 @endif
-                            </span>
-                        </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             @endforeach

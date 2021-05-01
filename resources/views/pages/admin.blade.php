@@ -1,4 +1,5 @@
 @extends('layouts/app')
+
 @section('content')
 @include('inc/topnav')
 <br>
@@ -82,7 +83,7 @@
                         <h4>Musicians</h4>
                     </td>
                     <td>
-                        {{ $users->where('acc_type', 'musician')->count() - 1 }}
+                        {{ $users->where('account_type', 'musician')->count() - 1 }}
                     </td>
                 </tr>
                 <!-- Number of Musicians End -->
@@ -185,13 +186,13 @@
             @endphp
             @foreach($users as $user)
                 <tr>
-                    <td>{{ $user->user_id }}</td>
+                    <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->username }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>
                     <td>{{ $user->gender }}</td>
-                    <td>{{ $user->acc_type }}</td>
+                    <td>{{ $user->account_type }}</td>
                     <td>{{ $user->bio }}</td>
                     <td>{{ $user->deco }}</td>
                     <td>{{ $user->dob }}</td>
@@ -222,7 +223,7 @@
             </tr>
             @foreach($users as $user)
                 @php
-                    $sum = $boughtVideos->where('bought_video_artist', $user->username)->count() * 10;
+                    $sum = $boughtVideos->where('artist', $user->username)->count() * 10;
                     $payoutSum = $payouts->where('username', $user->username)->sum('amount');
                     $payoutTotal = $sum-$payoutSum;
                     $phonenumber = substr_replace($user->phone,'0',0,-9);

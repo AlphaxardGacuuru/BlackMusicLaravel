@@ -14,7 +14,7 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id('post_id');
+            $table->id();
             $table->string('username')->nullable();
             $table->string('text')->nullable();
             $table->string('media')->nullable();
@@ -24,7 +24,6 @@ class CreatePostsTable extends Migration
             $table->string('parameter_4')->nullable();
             $table->string('parameter_5')->nullable();
             $table->timestamps();
-
         });
     }
 

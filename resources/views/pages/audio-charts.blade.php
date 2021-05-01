@@ -7,6 +7,7 @@
     use App\User;
 @endphp
 @extends('layouts/app')
+
 @section('content')
 @include('inc/topnav')
 <br>

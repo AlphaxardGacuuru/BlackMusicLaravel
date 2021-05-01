@@ -27,7 +27,7 @@ class PayoutsController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('user_id', 'desc');
+        $users = User::orderBy('id', 'desc');
         $videos = Videos::get();
         $boughtVideos = BoughtVideos::get();
         $payouts = Payouts::get();

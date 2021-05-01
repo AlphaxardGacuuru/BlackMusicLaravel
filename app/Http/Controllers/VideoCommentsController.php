@@ -48,8 +48,9 @@ class VideoCommentsController extends Controller
     public function store(Request $request)
     {
         /* Check if user has bought the song */
-        $boughtVideosQuery = BoughtVideos::where('username',
-            auth()->user()->username)->where('bought_video_artist', $request->input('musician'))->where('video_id', $request->input('video-id'))->count();
+        $boughtVideosQuery = BoughtVideos::where('username', auth()->user()->username)
+            ->where('artist', $request->input('musician'))
+            ->where('video_id', $request->input('video-id'))->count();
         if ($boughtVideosQuery > 0 || auth()->user()->username == '@blackmusic') {
             /* Create new post */
             $videoComment = new VideoComments;
@@ -58,9 +59,9 @@ class VideoCommentsController extends Controller
             $videoComment->text = $request->input('video-comment-text');
             $videoComment->save();
 
-            return redirect('/charts/' . $request->input('video-id'))->with('success', 'Comment Posted');
+            return redirect('/video-charts/' . $request->input('video-id'))->with('success', 'Comment Posted');
         } else {
-            return redirect('/charts/' . $request->input('video-id'))->with('error', 'You cannot comment if you have not bought the song');
+            return redirect('/video-charts/' . $request->input('video-id'))->with('error', 'You cannot comment if you have not bought the song');
         }
     }
 
@@ -106,9 +107,9 @@ class VideoCommentsController extends Controller
      */
     public function destroy($id)
     {
-        $videoComment = VideoComments::where('video_comment_id', $id)->first();
-        $deleteCLikes = VideoCommentLikes::where('video_comment_id', $id)->delete();
+        $videoComment = VideoComments::where('id', $id)->first();
+        VideoCommentLikes::where('comment_id', $id)->delete();
         VideoComments::find($id)->delete();
-        return redirect('/charts/' . $videoComment->video_id)->with('success', 'Comment deleted');
+        return redirect('/video-charts/' . $videoComment->video_id)->with('success', 'Comment deleted');
     }
 }

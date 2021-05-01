@@ -76,9 +76,9 @@ class VideoChartsController extends Controller
         $cartVideos = CartVideos::get();
         $boughtVideos = BoughtVideos::get();
         $videoLikes = VideoLikes::where('video_id', $id)->get();
-        $users = User::orderBy('user_id', 'desc')->get();
+        $users = User::orderBy('id', 'desc')->get();
         $follows = Follow::get();
-        $videoComments = VideoComments::where('video_id', $id)->orderBy('video_comment_id', 'desc')->get();
+        $videoComments = VideoComments::where('video_id', $id)->orderBy('id', 'desc')->get();
         $videoCommentLikes = VideoCommentLikes::get();
 
         return view('/pages/video-show')->with(['id' => $id, 'videos' => $videos, 'cartVideos' => $cartVideos, 'boughtVideos' => $boughtVideos, 'videoLikes' => $videoLikes, 'users' => $users, 'follows' => $follows, 'videoComments' => $videoComments, 'videoCommentLikes' => $videoCommentLikes]);

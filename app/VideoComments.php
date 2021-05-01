@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class VideoComments extends Model
 {
-    protected $primaryKey = "video_comment_id";
-
     public function videos()
     {
         return $this->belongsTo('App\Videos');
@@ -20,6 +18,6 @@ class VideoComments extends Model
 
     public function video_comment_likes()
     {
-        return $this->hasMany('App\VideoCommentLikes', 'video_comment_id', 'video_comment_id');
+        return $this->hasMany('App\VideoCommentLikes', 'comment_id');
     }
 }

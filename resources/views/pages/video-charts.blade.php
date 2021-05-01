@@ -7,6 +7,7 @@
     use App\User;
 @endphp
 @extends('layouts/app')
+
 @section('content')
 @include('inc/topnav')
 <br>
@@ -483,7 +484,7 @@
                     $followQuery = Follow::where('followed', $targetArtist)->where('username',
                     $user->username)->count();
                     $targetVideosQuery = BoughtVideos::where('username',
-                    $user->username)->where('bought_video_artist', $targetArtist)->count();
+                    $user->username)->where('artist', $targetArtist)->count();
                     if ($followQuery == 0) {
                     if ($targetVideosQuery > 0 || $user->username == '@blackmusic') {
                     $fBtn = Form::submit('follow', ['class' => 'mysonar-btn float-right']);
@@ -688,7 +689,7 @@
                         $followQuery = Follow::where('followed', $targetArtist)->where('username',
                         $user->username)->count();
                         $targetVideosQuery = BoughtVideos::where('username',
-                        $user->username)->where('bought_video_artist', $targetArtist)->count();
+                        $user->username)->where('artist', $targetArtist)->count();
                         if ($followQuery == 0) {
                         if ($targetVideosQuery > 0 || $user->username == '@blackmusic') {
                         $fBtn =
