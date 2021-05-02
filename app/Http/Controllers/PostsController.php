@@ -14,7 +14,6 @@ use App\User;
 use App\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Image;
 
 class PostsController extends Controller
 {
@@ -69,12 +68,9 @@ class PostsController extends Controller
             'post-media' => 'image|nullable|max:9999',
         ]);
 
-/* Handle file upload */
+        /* Handle file upload */
         if ($request->hasFile('post-media')) {
-            //$path = $request->file('post-media')->store('public/post-media');
-            $path = 'public/post-media/' . $request->file('post-media')->hashName();
-            $compressedImg = Image::make($request->file('post-media'))->encode('jpg', 50);
-            Storage::put($path, $compressedImg);
+            $path = $request->file('post-media')->store('public/post-media');
         } else {
             $path = "";
         }
