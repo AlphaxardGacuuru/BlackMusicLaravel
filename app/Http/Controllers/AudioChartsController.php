@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\BoughtVideos;
-use App\CartVideos;
+use App\AudioCommentLikes;
+use App\AudioComments;
+use App\AudioLikes;
+use App\Audios;
+use App\BoughtAudios;
+use App\CartAudios;
 use App\Follow;
 use App\User;
-use App\VideoCommentLikes;
-use App\VideoComments;
-use App\VideoLikes;
-use App\Videos;
 use Illuminate\Http\Request;
 
 class AudioChartsController extends Controller
@@ -31,8 +31,8 @@ class AudioChartsController extends Controller
      */
     public function index($chart, $vGenre)
     {
-        $videos = Videos::get();
-        return view('/pages/audio-charts')->with(['chart' => $chart, 'vGenre' => $vGenre, 'videos' => $videos]);
+        $audios = Audios::get();
+        return view('/pages/audio-charts')->with(['chart' => $chart, 'vGenre' => $vGenre, 'audios' => $audios]);
     }
 
     /**
@@ -64,16 +64,16 @@ class AudioChartsController extends Controller
      */
     public function show($id)
     {
-        $videos = Videos::get();
-        $cartVideos = CartVideos::get();
-        $boughtVideos = BoughtVideos::get();
-        $videoLikes = VideoLikes::where('video_id', $id)->get();
-        $users = User::orderBy('user_id', 'desc')->get();
+        $audios = Audios::get();
+        $cartAudios = CartAudios::get();
+        $boughtAudios = BoughtAudios::get();
+        $audioLikes = AudioLikes::where('audio_id', $id)->get();
+        $users = User::orderBy('id', 'desc')->get();
         $follows = Follow::get();
-        $videoComments = VideoComments::where('video_id', $id)->orderBy('video_comment_id', 'desc')->get();
-        $videoCommentLikes = VideoCommentLikes::get();
+        $audioComments = AudioComments::where('audio_id', $id)->orderBy('id', 'desc')->get();
+        $audioCommentLikes = AudioCommentLikes::get();
 
-        return view('/pages/video-show')->with(['id' => $id, 'videos' => $videos, 'cartVideos' => $cartVideos, 'boughtVideos' => $boughtVideos, 'videoLikes' => $videoLikes, 'users' => $users, 'follows' => $follows, 'videoComments' => $videoComments, 'videoCommentLikes' => $videoCommentLikes]);
+        return view('/pages/audio-show')->with(['id' => $id, 'audios' => $audios, 'cartAudios' => $cartAudios, 'boughtAudios' => $boughtAudios, 'audioLikes' => $audioLikes, 'users' => $users, 'follows' => $follows, 'audioComments' => $audioComments, 'audioCommentLikes' => $audioCommentLikes]);
     }
 
     /**

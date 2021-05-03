@@ -14,7 +14,7 @@
     <title>{{ config('app.name', 'Black Music') }}</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/musical-note.png">
+    <link rel="icon" href="storage/img/musical-note.png">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

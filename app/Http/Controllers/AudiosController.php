@@ -30,8 +30,9 @@ class AudiosController extends Controller
         $audios = Audios::where('username', auth()->user()->username)->orderby('id', 'DESC')->get();
         $audiosSingles = Audios::where('username', auth()->user()->username)->Where('album', '')->orWhere('album', 'Single')->get();
         $audioAlbums = AudioAlbums::where('username', auth()->user()->username)->orderby('id', 'ASC')->get();
-        $downloads = BoughtAudios::where('bought_audio_artist', auth()->user()->username)->count();
+        $downloads = BoughtAudios::where('artist', auth()->user()->username)->count();
         $audioPayouts = AudioPayouts::where('username', auth()->user()->username)->sum('amount');
+
         return view('/pages/audios')->with(['audios' => $audios, 'audiosSingles' => $audiosSingles, 'audioAlbums' => $audioAlbums, 'downloads' => $downloads, 'audioPayouts' => $audioPayouts]);
     }
 
@@ -107,7 +108,7 @@ class AudiosController extends Controller
      * @param  \App\Audios  $audios
      * @return \Illuminate\Http\Response
      */
-    public function show(Audios $audios)
+    public function show($id)
     {
         //
     }

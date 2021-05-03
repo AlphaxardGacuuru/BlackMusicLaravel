@@ -135,7 +135,7 @@
                 @if(count($audiosSingles) > 0)
                     @foreach($audiosSingles as $audiosSingle)
                         <tr>
-                            <td><a href='/charts/{{ $audiosSingle->id }}'>
+                            <td><a href='/audio-charts/{{ $audiosSingle->id }}'>
                                     <img src="/storage/{{ $audiosSingle->thumbnail }}" width="160em" height="90em"
                                         alt="thumbnail">
                                 </a>
@@ -227,7 +227,7 @@
                             @endphp
                             @if(count($albumItems) > 0)
                                 @foreach($albumItems as $albumItem)
-                                    <td><a href='/charts/{{ $albumItem->id }}'>
+                                    <td><a href='/audio-charts/{{ $albumItem->id }}'>
                                             <img src="/storage/{{ $albumItem->thumbnail }}" width="160em"
                                                 height="90em" alt="thumbnail">
                                         </a>

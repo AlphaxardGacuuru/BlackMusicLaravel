@@ -9,13 +9,13 @@
 	"description": "A Music streaming app",
 	"icons": [
 	{
-            "src": "img/musical-note-2.png",
+            "src": "storage/img/musical-note-2.png",
             "sizes": "256x256",
             "type": "image/png",
 			"purpose": "any"
 	},
 	{
-            "src": "img/musical-note.png",
+            "src": "storage/img/musical-note.png",
             "sizes": "512x512",
             "type": "image/png",
 			"purpose": "maskable"

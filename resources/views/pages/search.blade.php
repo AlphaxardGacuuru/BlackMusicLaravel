@@ -177,7 +177,7 @@
                 @if($boughtVideoQuery == 0)
                     <div class="media p-2 border-bottom">
                         <div class="media-left thumbnail">
-                            <a href='/charts/{{ $videoResult->id }}'>
+                            <a href='/video-charts/{{ $videoResult->id }}'>
                                 <img src='{{ $videoResult->thumbnail }}' width="160em" height="90em">
                             </a>
                         </div>
