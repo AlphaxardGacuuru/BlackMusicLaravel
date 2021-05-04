@@ -59,21 +59,21 @@ self.addEventListener('activate', evt => {
 	);
 });
 
-// fetch event
-// self.addEventListener('fetch', evt => {
-// 	// console.log('fetch event', evt);
-// 	evt.respondWith(
-// 		// Checks whether the resources being fetched are already cached and fetching those instead
-// 		caches.match(evt.request).then(cacheRes => {
-// 			// If resources are not cached and are obtainded from the server the add those to dynamic cache
-// 			return cacheRes || fetch(evt.request).then(fetchRes => {
-// 				return caches.open(dynamicCacheName).then(cache => {
-// 					cache.put(evt.request.url, fetchRes.clone());
-// 					//limitCacheSize(dynamicCacheName, 100);
-// 					return fetchRes;
-// 				})
-// 			})
-// 			// Redirect to fallback page if page is not cached
-// 		}).catch(() => caches.match('/home'))
-// 	);
-// });
+fetch event
+self.addEventListener('fetch', evt => {
+	// console.log('fetch event', evt);
+	evt.respondWith(
+		// Checks whether the resources being fetched are already cached and fetching those instead
+		caches.match(evt.request).then(cacheRes => {
+			// If resources are not cached and are obtainded from the server the add those to dynamic cache
+			return cacheRes || fetch(evt.request).then(fetchRes => {
+				return caches.open(dynamicCacheName).then(cache => {
+					cache.put(evt.request.url, fetchRes.clone());
+					//limitCacheSize(dynamicCacheName, 100);
+					return fetchRes;
+				})
+			})
+			// Redirect to fallback page if page is not cached
+		}).catch(() => caches.match('/home'))
+	);
+});
