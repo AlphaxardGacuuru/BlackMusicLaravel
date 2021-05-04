@@ -1,5 +1,5 @@
 // staticCacheName needs to be changed after any of the assets are changed
-const staticCacheName = 'site-static-v9';
+const staticCacheName = 'site-static-v1';
 const dynamicCacheName = 'site-dynamic-v1';
 // Assests to be cached
 const assets = [
