@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#232323" />
     {{-- iOS Safari --}}
     <meta name="apple-mobile-web-app-status-bar-style" content="#232323">
+    <meta name="description" content="The best Kenyan Online Music Store" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
