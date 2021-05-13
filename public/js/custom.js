@@ -109,3 +109,29 @@ if ('serviceWorker' in navigator) {
 			.catch((err) => console.log('Service worker not registered', err));
 	})
 }
+
+// Install button
+let deferredPrompt;
+// Listen to the install prompt
+window.addEventListener('beforeinstallprompt', (e) => {
+	deferredPrompt = e;
+	// Show the button
+	btnAdd.style.display = 'block';
+
+	// Action when button is clicked
+	btnAdd.addEventListener('click', (e) => {
+		// Show install banner
+		deferredPrompt.prompt();
+		// Check if the user accepted
+		// deferredPrompt.userChoice.then((choiceResult) => {
+		// 	if(choiceResult.outcome === 'accepted') {
+		// 		btnAdd.innerHTML = 'User accepted';
+		// 	}
+		// 	deferredPrompt = null;
+		// });
+
+		window.addEventListener('appinstalled', (evt) => {
+			btnAdd.innerHTML = 'Installed';
+		});
+	});
+});

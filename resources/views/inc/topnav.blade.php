@@ -335,6 +335,10 @@
                                             <h5>{{ Auth::user()->name }}</h5>
                                             <h6>{{ Auth::user()->username }}</h6>
                                         </a>
+                                        <a href='#' id="btnAdd" style="background-color: gold; display: none;"
+                                            class="p-3 dropdown-item border-bottom">
+                                            <h6>Install app</h6>
+                                        </a>
                                         <a href='/videos' class="p-3 dropdown-item border-bottom">
                                             <h6>Studio</h6>
                                         </a>
