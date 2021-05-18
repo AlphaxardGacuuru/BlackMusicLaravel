@@ -15,7 +15,7 @@
     <title>{{ config('app.name', 'Black Music') }}</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="storage/img/musical-note-black-512.png">
+    <link rel="icon" href="storage/img/musical-note-black-gold-512.png">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -33,7 +33,7 @@
     <link rel="manifest" type="application/manifest+json" href="manifest.webmanifest">
 
     {{-- IOS support --}}
-    <link rel="apple-touch-icon" href="storage/img/musical-note-black-512.png">
+    <link rel="apple-touch-icon" href="storage/img/musical-note-black-gold-512.png">
     <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
 </head>
 <body>
