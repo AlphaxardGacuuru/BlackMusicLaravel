@@ -2,7 +2,8 @@
     use App\Kopokopo;
 
     header("Content-Type:application/json");
-    /* if (!isset($_GET["token"])) {
+
+    if (!isset($_GET["token"])) {
     echo "Technical error";
     exit();
     }
@@ -10,7 +11,7 @@
 
     echo "Invalid authorization";
     exit();
-    } */
+    }
 
     /* Takes raw data from the request */
     $json = file_get_contents('php://input');
@@ -50,5 +51,4 @@
     $kopokopo->currency = $data->currency;
     $kopokopo->signature = $data->signature;
     $kopokopo->save();
-    echo "kopo";
 @endphp

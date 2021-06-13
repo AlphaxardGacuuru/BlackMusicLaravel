@@ -100,7 +100,7 @@
 
             <input type="hidden" name="gender" value="">
 
-            <input type="hidden" name="account_type" value="show">
+            <input type="hidden" name="account_type" value="normal">
 
             <input type="hidden" name="account_type_2" value="">
 
