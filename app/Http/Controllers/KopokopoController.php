@@ -39,17 +39,17 @@ class KopokopoController extends Controller
         $kopokopo->first_name = $request->input('first_name');
         $kopokopo->last_name = $request->input('last_name');
         $kopokopo->amount = $request->input('amount');
-        // $kopokopo->transaction_reference = $request->input('transaction_reference');
-        // $kopokopo->sender_phone = $request->input('sender_phone');
-        // $kopokopo->middle_name = $request->input('middle_name');
-        // $kopokopo->service_name = $request->input('service_name');
-        // $kopokopo->business_number = $request->input('business_number');
-        // $kopokopo->internal_transaction_id = $request->input('internal_transaction_id');
-        // $kopokopo->transaction_timestamp = $request->input('transaction_timestamp');
-        // $kopokopo->transaction_type = $request->input('transaction_type');
-        // $kopokopo->account_number = $request->input('account_number');
-        // $kopokopo->currency = $request->input('currency');
-        // $kopokopo->signature = $request->input('signature');
+        $kopokopo->transaction_reference = $request->input('transaction_reference');
+        $kopokopo->sender_phone = $request->input('sender_phone');
+        $kopokopo->middle_name = $request->input('middle_name');
+        $kopokopo->service_name = $request->input('service_name');
+        $kopokopo->business_number = $request->input('business_number');
+        $kopokopo->internal_transaction_id = $request->input('internal_transaction_id');
+        $kopokopo->transaction_timestamp = $request->input('transaction_timestamp');
+        $kopokopo->transaction_type = $request->input('transaction_type');
+        $kopokopo->account_number = $request->input('account_number');
+        $kopokopo->currency = $request->input('currency');
+        $kopokopo->signature = $request->input('signature');
         $kopokopo->save();
 
         return response()->json([
