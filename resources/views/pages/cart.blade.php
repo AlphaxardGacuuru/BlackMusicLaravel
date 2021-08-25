@@ -67,10 +67,7 @@
         <div class="p-2 border-bottom">
             <h5>Payment</h5>
         </div>
-		<div>
-			<h3 class="m-2 text-danger">Oops! Payment not working at the moment!</h3>
-		</div>
-        {{-- <div class="contact-form form-group">
+        <div class="contact-form form-group">
             <center>
                 <label><input type='text' class='form-control' value='613289' id='myInput'></label><br>
                 <button class='btn sonar-btn' onclick='copyText()'>copy till number</button>
@@ -106,7 +103,7 @@
                         same number you use for every transaction in Black Music.</h5>
                     <a href='home/create'><button class='btn sonar-btn'>update phone number</button></a>
             </div>
-        @endif --}}
+        @endif
     </div>
     <div class="col-sm-1"></div>
 </div>

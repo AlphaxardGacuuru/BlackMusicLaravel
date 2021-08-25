@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BoughtVideos;
 use App\CartVideos;
 use App\Decos;
+use App\Kopokopo;
 use App\User;
 use App\VideoNotifications;
 use Illuminate\Http\Request;
@@ -109,7 +110,8 @@ class BoughtVideosController extends Controller
         $cartVideos = CartVideos::where('username', auth()->user()->username)->get();
         $boughtVideos = BoughtVideos::where('username', auth()->user()->username)->get();
         $totalVideos = BoughtVideos::where('username', auth()->user()->username)->count() * 20;
-        $kopokopo = DB::table('kopokopo')->where('sender_phone', auth()->user()->phone)->sum('amount');
+        $phone = substr_replace(auth()->user()->phone, "+254", 0, -9);
+        $kopokopo = Kopokopo::where('sender_phone', $phone)->sum('amount');
         $balance = $kopokopo - $totalVideos;
 
         return view('pages/receipt')->with(['cartVideos' => $cartVideos, 'boughtVideos' => $boughtVideos, 'permission' => $permission, 'balance' => $balance]);
