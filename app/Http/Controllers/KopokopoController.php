@@ -36,11 +36,11 @@ class KopokopoController extends Controller
     public function store(Request $request)
     {
         $kopokopo = new Kopokopo;
+        $kopokopo->sender_phone = $request->input('sender_phone');
         $kopokopo->first_name = $request->input('first_name');
         $kopokopo->last_name = $request->input('last_name');
         $kopokopo->amount = $request->input('amount');
-        $kopokopo->transaction_reference = $request->input('transaction_reference');
-        $kopokopo->sender_phone = $request->input('sender_phone');
+        $kopokopo->reference = $request->input('transaction_reference');
         $kopokopo->middle_name = $request->input('middle_name');
         $kopokopo->service_name = $request->input('service_name');
         $kopokopo->business_number = $request->input('business_number');
