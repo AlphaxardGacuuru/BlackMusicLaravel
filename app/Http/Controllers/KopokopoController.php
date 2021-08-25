@@ -50,7 +50,7 @@ class KopokopoController extends Controller
         // $kopokopo->account_number = $request->input('account_number');
         // $kopokopo->currency = $request->input('currency');
         // $kopokopo->signature = $request->input('signature');
-        $kopokopo->save();
+        // $kopokopo->save();
 
         return response()->json([
             'status' => '01',
