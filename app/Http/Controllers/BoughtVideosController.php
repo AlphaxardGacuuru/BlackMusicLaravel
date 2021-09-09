@@ -53,11 +53,13 @@ class BoughtVideosController extends Controller
     public function store(Request $request)
     {
         $permission = "";
+        $approved = 0;
         /* Fetch songs from vs_cart */
         $vCartCheck = CartVideos::where('username', auth()->user()->username)->get();
         foreach ($vCartCheck as $vCartCheck) {
             $totalVideos = BoughtVideos::where('username', auth()->user()->username)->count() * 20;
-            $kopokopo = DB::table('kopokopo')->where('sender_phone', auth()->user()->phone)->sum('amount');
+            $betterPhone = substr_replace(auth()->user()->phone, '+254', 0, -9);
+            $kopokopo = DB::table('kopokopo')->where('sender_phone', $betterPhone)->sum('amount');
             $balance = $kopokopo - $totalVideos;
             $permission = intval($balance / 20);
             if ($permission >= 1) {
@@ -102,19 +104,24 @@ class BoughtVideosController extends Controller
                         $decoNotification->save();
                     }
                     /* Delete from cart */
-                    CartVideos::find($vCartCheck->cart_video_id)->delete();
+                    CartVideos::where('video_id', $vCartCheck->video_id)->where('username', auth()->user()->username)->delete();
+                    $approved++;
                 }
             }
         }
 
         $cartVideos = CartVideos::where('username', auth()->user()->username)->get();
-        $boughtVideos = BoughtVideos::where('username', auth()->user()->username)->get();
+        $boughtVideos = BoughtVideos::where('username', auth()->user()->username)->orderby('id', 'DESC')->get();
         $totalVideos = BoughtVideos::where('username', auth()->user()->username)->count() * 20;
         $phone = substr_replace(auth()->user()->phone, "+254", 0, -9);
         $kopokopo = Kopokopo::where('sender_phone', $phone)->sum('amount');
         $balance = $kopokopo - $totalVideos;
 
-        return view('pages/receipt')->with(['cartVideos' => $cartVideos, 'boughtVideos' => $boughtVideos, 'permission' => $permission, 'balance' => $balance]);
+        return view('pages/receipt')->with([
+            'cartVideos' => $cartVideos,
+            'boughtVideos' => $boughtVideos,
+            'approved' => $approved,
+            'balance' => $balance]);
 
     }
 

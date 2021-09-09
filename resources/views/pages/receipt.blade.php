@@ -72,7 +72,7 @@
         @endif
     </div>
     <div class="col-sm-3">
-        @if($permission >= 1)
+        @if($approved >= 1)
             <div class='p-2 border-bottom'>
                 <h5 style='color: green;'>Payment received!</h5>
             </div>
