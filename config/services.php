@@ -15,8 +15,8 @@ return [
      */
 
     'mailgun' => [
-        'domain' => env('www.black.co.ke'),
-        'secret' => env('f8a156fd4498e2fab598a09d4f92e3d1-53c13666-6d3ab6d3'),
+        'domain' => env('MAILGUN_DOMAIN'),
+        'secret' => env('MAILGUN_SECRET'),
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
